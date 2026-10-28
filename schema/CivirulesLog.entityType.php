@@ -11,6 +11,18 @@ return [
     'description' => E::ts('Civirules logger log'),
     'log' => TRUE,
   ],
+  'getIndices' => fn() => [
+    'index_timestamp' => [
+      'fields' => [
+        'timestamp' => TRUE,
+      ],
+    ],
+    'index_rule_id' => [
+      'fields' => [
+        'rule_id' => TRUE,
+      ],
+    ],
+  ],
   'getFields' => fn() => [
     'id' => [
       'title' => E::ts('ID'),

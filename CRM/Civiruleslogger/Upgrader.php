@@ -19,4 +19,20 @@ final class CRM_Civiruleslogger_Upgrader extends \CRM_Extension_Upgrader_Base {
     return TRUE;
   }
 
+  /**
+   * Index timestamp (pruning) and rule_id (the rule's log page, deleting a rule).
+   *
+   * On a large log, building the indexes takes time and temporary disk space:
+   * truncate the table first if its contents are not needed.
+   *
+   * @return TRUE on success
+   */
+  public function upgrade_1001(): bool {
+    $this->ctx->log->info('Add indexes on timestamp and rule_id to civirule_civiruleslogger_log');
+    foreach (['timestamp', 'rule_id'] as $field) {
+      E::schema()->createIndex('civirule_civiruleslogger_log', "index_$field", ['fields' => [$field => TRUE]]);
+    }
+    return TRUE;
+  }
+
 }
