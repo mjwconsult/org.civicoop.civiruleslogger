@@ -1,0 +1,1 @@
+{"version":1,"defects":{"api_v3_CivirulesLogger_PrunelogTest::testPruneDeletesEntriesOlderThanRetentionAcrossBatches":3},"times":{"api_v3_CivirulesLogger_PrunelogTest::testPruneDeletesEntriesOlderThanRetentionAcrossBatches":0.169}}
