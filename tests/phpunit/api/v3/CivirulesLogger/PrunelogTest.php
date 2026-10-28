@@ -26,6 +26,19 @@ class api_v3_CivirulesLogger_PrunelogTest extends \PHPUnit\Framework\TestCase im
     $this->assertEquals($recent, $this->remainingIds());
   }
 
+  public function testDebugEntriesArePrunedSooner(): void {
+    $this->addLogs(2, '-10 days', 'debug');
+    $keep = array_merge(
+      $this->addLogs(1, '-10 days', 'error'),
+      $this->addLogs(1, '-3 days', 'debug'),
+    );
+
+    $result = civicrm_api3('CivirulesLogger', 'prunelog', ['retention_days' => 90, 'debug_retention_days' => 7]);
+
+    $this->assertEquals(2, $result['values']['deleted']);
+    $this->assertEquals($keep, $this->remainingIds());
+  }
+
   /**
    * @return int[]
    *   The new entries' ids.
